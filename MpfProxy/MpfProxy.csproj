@@ -73,6 +73,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>PowerShell -NoProfile -File $(SolutionDir)\Build\Invoke-RegAsm.ps1 $(ProjectName) $(FrameworkDir) $(PlatformName) $(TargetPath) $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>PowerShell -NoProfile -ExecutionPolicy Unrestricted -File $(SolutionDir)\Build\Invoke-RegAsm.ps1 $(ProjectName) $(FrameworkDir) $(PlatformName) $(TargetPath) $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>
