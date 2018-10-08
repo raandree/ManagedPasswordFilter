@@ -1,0 +1,69 @@
+version: 0.1.0.{build}
+image:
+- Visual Studio 2017
+
+environment:
+
+skip_tags: true
+
+#install:
+#  - git submodule -q update --init --recursive
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
+#before_build:
+#  - nuget restore
+#  - ps: |
+#        Write-Host "'before_build' block"
+#
+#        Write-Host "Setting version number in files"
+#        Add-AppveyorMessage -Message "Setting version number in files" -Category Information
+#        gci -Filter *.psd1 -Recurse | foreach {(Get-Content $_.FullName -Raw) -replace "ModuleVersion += '\d\.\d\.\d\.\d'", "ModuleVersion = '$env:APPVEYOR_BUILD_VERSION'" | Out-File $_.FullName}
+#        Write-Host "Calling build script"
+#        .\Build.ps1
+
+build:
+  project: ManagedPasswordFilter.sln
+
+after_build:
+  - ps: |
+        Write-Host "'after_build' block"
+        #$Params = @{
+        #Path    = $env:APPVEYOR_BUILD_FOLDER
+        #Force   = $true
+        #Recurse = $false
+        #Verbose = $true
+        #}
+        #Invoke-PSDeploy @Params # Create nuget package artifacts
+        Write-Host "Locating installer to push as artifact"
+        Add-AppveyorMessage "Locating installer to push as artifact" -Category Information
+        $msifile = Get-ChildItem -Recurse -Filter ManagedPasswordFilter.msi | Select-Object -First 1
+        Push-AppVeyorArtifact $msifile.FullName -FileName $msifile.Name -DeploymentName installer
+
+deploy:
+  - provider: GitHub
+    release: ManagedPasswordFilter-v$(appveyor_build_version)
+    tag: v$(appveyor_build_version)
+    description: 'This is an automated deployment'
+    auth_token:
+      secure: 7a77d903616def12df02a7c3c5f1e1f4cf077eb8 # your encrypted token from GitHub
+    artifact: installer            # upload all NuGet packages to release assets
+    draft: false
+    prerelease: false
+    on:
+      branch: master                 # release from master branch only
+
+after_deploy:
+  ps: |
+        Write-Host "'after_deploy' block"
+
+on_finish:
+  - ps: |
+        Write-Host "'on_finish' block"
+        #$blockRdp = $true
+        #iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
