@@ -2,8 +2,6 @@ version: 0.1.0.{build}
 image:
 - Visual Studio 2017
 
-environment:
-
 skip_tags: true
 
 #install:
