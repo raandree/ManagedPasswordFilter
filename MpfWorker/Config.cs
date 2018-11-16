@@ -4,9 +4,9 @@ using System;
 namespace Mpf
 {
     [Serializable]
-    public class MpfConfig : XmlStore<MpfConfig>
+    public class Config : XmlStore<Config>
     {
-        public MpfConfig()
+        public Config()
         {
             PasswordPolicy = new PasswordPoliciy();
         }
@@ -25,6 +25,7 @@ namespace Mpf
         public int MinScore { get; set; }
         public int MaxConsecutiveRepeatingCharacters { get; set; }
         public PasswordSettings Denysettings { get; set; }
+        public double? AllowedBlackListQuotaPercent { get; set; }
     }
 
     [Flags]

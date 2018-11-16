@@ -9,12 +9,12 @@ namespace Mpf
             return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
         }
 
-        public static bool WildCardMatch(this string value, string pattern, bool ignoreCase = true)
+        public static int WildCardMatch(this string value, string pattern, bool ignoreCase = true)
         {
             if (ignoreCase)
-                return Regex.IsMatch(value, WildCardToRegular(pattern), RegexOptions.IgnoreCase);
+                return Regex.Matches(value, Regex.Replace(pattern, @"\*|\?", ""), RegexOptions.IgnoreCase).Count;
 
-            return Regex.IsMatch(value, WildCardToRegular(pattern));
+            return Regex.Matches(value, WildCardToRegular(pattern)).Count;
         }
 
         public static bool HasConsecutiveChars(this string value, int sequenceLength)

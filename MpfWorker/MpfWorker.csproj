@@ -61,8 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
-    <Compile Include="MpfConfig.cs" />
-    <Compile Include="MpfWorker.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Worker class\TestPassword.cs" />
+    <Compile Include="Worker class\TestAdAttributeValueName.cs" />
+    <Compile Include="Worker class\TestBlackList.cs" />
+    <Compile Include="Worker class\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\XmlStore.cs" />
   </ItemGroup>

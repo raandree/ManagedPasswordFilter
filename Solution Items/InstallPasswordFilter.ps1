@@ -26,7 +26,7 @@ Write-Host
 Write-Host "BlackList has $((Get-Content -Path $blacklistPath | Measure-Object).Count) entries"
 Write-Host
 Write-Host "Creating default Password Filter config in '$mpfConfigPath'"
-$config = New-Object Mpf.MpfConfig
+$config = New-Object Mpf.Config
 $config.BlackListPath = $blacklistPath
 $config.IsEnabled = $true
 $config.ResultIfFailure = $true
@@ -37,6 +37,7 @@ $policy.MaxLength = 254
 $policy.MinLength = 12
 $policy.MinScore = 3
 $policy.MaxConsecutiveRepeatingCharacters = 5
+$policy.AllowedBlackListQuotaPercent = 20
 $config.PasswordPolicy = $policy
 $config.Export($mpfConfigPath)
 

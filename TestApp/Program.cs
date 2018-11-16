@@ -85,7 +85,7 @@ namespace TestApp
 
             if (Parameters.InitConfig.HasValue)
             {
-                Mpf.MpfConfig c = new Mpf.MpfConfig
+                Mpf.Config c = new Mpf.Config
                 {
                     BlackListPath = "C:\\Windows\\System32\\BlackList.txt",
                     IsEnabled = true,
