@@ -33,7 +33,6 @@ namespace Mpf
     {
         DenyGivenName = 1,
         DenySurname = 2,
-        DenyName = DenyGivenName | DenySurname,
-        DenyYear = 4
+        DenyName = DenyGivenName | DenySurname
     }
 }

@@ -32,7 +32,7 @@ $config.IsEnabled = $true
 $config.ResultIfFailure = $true
 
 $policy = New-Object Mpf.PasswordPoliciy
-$policy.Denysettings = 'DenyName', 'DenyYear'
+$policy.Denysettings = 'DenyName'
 $policy.MaxLength = 254
 $policy.MinLength = 12
 $policy.MinScore = 3

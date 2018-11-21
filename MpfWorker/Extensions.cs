@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Mpf
 {
@@ -20,6 +22,28 @@ namespace Mpf
         public static bool HasConsecutiveChars(this string value, int sequenceLength)
         {
             return !Regex.IsMatch(value, "(.)\\1{" + (sequenceLength - 1) + "}");
+        }
+
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+        {
+            if (source == null) { throw new ArgumentException(); }
+            if (action == null) { throw new ArgumentException(); }
+
+            foreach (T element in source)
+            {
+                action(element);
+            }
+        }
+
+        public static IEnumerable<TOut> ForEach<TIn, TOut>(this IEnumerable<TIn> collection, Func<TIn, TOut> action)
+        {
+            if (collection == null) { throw new ArgumentException(); }
+            if (action == null) { throw new ArgumentException(); }
+
+            foreach (var item in collection)
+            {
+                yield return (TOut)action(item);
+            }
         }
     }
 }

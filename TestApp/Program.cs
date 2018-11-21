@@ -91,7 +91,7 @@ namespace TestApp
                     IsEnabled = true,
                     ResultIfFailure = true
                 };
-                c.PasswordPolicy.Denysettings = Mpf.PasswordSettings.DenyName | Mpf.PasswordSettings.DenyYear;
+                c.PasswordPolicy.Denysettings = Mpf.PasswordSettings.DenyName;
                 c.PasswordPolicy.MinLength = 12;
                 c.PasswordPolicy.MaxLength = 250;
                 c.PasswordPolicy.MinScore = 3;
