@@ -16,6 +16,18 @@ public class DefaultPasswordRules : PasswordRulesBase
     }
 
     [PasswordRule]
+    public static bool TestAtLeastOneUpperCaseCharacter(string password, string accountName)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(password, "[A-Z]+");
+    }
+
+    [PasswordRule]
+    public static bool TestAtLeastOneLowerCaseCharacter(string password, string accountName)
+    {
+        return System.Text.RegularExpressions.Regex.IsMatch(password, "[a-z]+");
+    }
+
+    [PasswordRule]
     public static bool TestMaxConsecutiveChars(string password, string accountName)
     {
         if (config.PasswordPolicy.MaxConsecutiveRepeatingCharacters > 0)
