@@ -10,13 +10,11 @@ public class QuotaPasswordRules : PasswordRulesBase
         if (Chars > 0)
         {
             var characterQuotaPercentage = Convert.ToDouble(Chars) / password.Length * 100;
-            Chars = 0;
             Console.WriteLine("Total quota is {0:N2}%, policy is {1}%", characterQuotaPercentage, config.PasswordPolicy.AllowedBlackListQuotaPercent);
             return characterQuotaPercentage < config.PasswordPolicy.AllowedBlackListQuotaPercent;
         }
         else
         {
-            Chars = 0;
             return true;
         }
     }

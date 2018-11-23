@@ -22,7 +22,7 @@ namespace Mpf
                 var methods = c.GetMethods()
                 .Where(m => m.GetCustomAttributes(typeof(PasswordRuleAttribute), false).Length > 0);
 
-                Console.WriteLine("Going though {0} test rules in class '{1}'", methods.Count(), c.Name);
+                Console.WriteLine("Going through {0} test rules in class '{1}'", methods.Count(), c.Name);
 
                 var rules = (PasswordRulesBase)Activator.CreateInstance(c);
                 if (rules.IsEnabled & methods.Count() > 0 & result)

@@ -38,13 +38,11 @@ public class BlackListPasswordRules : PasswordRulesBase
         if (Chars > 0)
         {
             var blackListPercentage = Convert.ToDouble(Chars) / password.Length * 100;
-            Chars = 0;
             Console.WriteLine("Blacklist quota is {0:N2}%, policy is {1}%", blackListPercentage, config.PasswordPolicy.AllowedBlackListQuotaPercent);
             return blackListPercentage < config.PasswordPolicy.AllowedBlackListQuotaPercent;
         }
         else
         {
-            Chars = 0;
             return true;
         }
     }
