@@ -9,12 +9,14 @@ namespace Mpf
         protected static Config config = null;
         protected static bool IsConnectedToAd = false;
         protected static DirectoryEntry rootDse = null;
-        static string configFilePath = @"C:\Windows\System32\MpfConfig.xml";
+        readonly string configFilePath = @"C:\Windows\System32\MpfConfig.xml";
 
         public bool IsEnabled
         {
             get { return config.IsEnabled; }
         }
+
+        protected static int Chars { get; set; }
 
         public PasswordRulesBase()
         {
@@ -44,7 +46,7 @@ namespace Mpf
             }
             catch
             {
-                Console.WriteLine("Could not read RootDse object, AD Tests will be skipped.");
+                //No connection to AD
             }
         }
     }

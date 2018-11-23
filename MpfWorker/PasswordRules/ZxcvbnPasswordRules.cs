@@ -1,7 +1,7 @@
 ﻿using System;
 using Mpf;
 
-[PasswordRuleContainer]
+[PasswordRuleContainer(Order = 10)]
 public class ZxcvbnPasswordRules : PasswordRulesBase
 {
     static Zxcvbn.Zxcvbn Zxcvbn = new Zxcvbn.Zxcvbn();

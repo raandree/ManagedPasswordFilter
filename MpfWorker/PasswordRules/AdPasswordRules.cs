@@ -2,7 +2,7 @@
 using System;
 using System.DirectoryServices;
 
-[PasswordRuleContainer]
+[PasswordRuleContainer(Order = 5)]
 public class AdPasswordRules : PasswordRulesBase
 {
     [PasswordRule]
@@ -47,9 +47,9 @@ public class AdPasswordRules : PasswordRulesBase
             var value = sr.GetDirectoryEntry().Properties[propertyName][0].ToString();
             Console.WriteLine("AD Value is: " + value);
             if (password.ToLower().Contains(value.ToLower()))
-                return false;
-            else
-                return true;
+                Chars += value.Length;
+
+            return true;
         }
         catch
         {

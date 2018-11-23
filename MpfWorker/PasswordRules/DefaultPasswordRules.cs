@@ -1,6 +1,6 @@
 ﻿using Mpf;
 
-[PasswordRuleContainer]
+[PasswordRuleContainer(Order = 1)]
 public class DefaultPasswordRules : PasswordRulesBase
 {
     [PasswordRule]

@@ -2,11 +2,9 @@
 using System.IO;
 using Mpf;
 
-[PasswordRuleContainer]
+[PasswordRuleContainer(Order = 3)]
 public class BlackListPasswordRules : PasswordRulesBase
-{    
-    static int blackListCharactersInPassword = 0;
-
+{
     [PasswordRule]
     public static bool TestBlackList(string password, string accountName)
     {
@@ -32,19 +30,21 @@ public class BlackListPasswordRules : PasswordRulesBase
                     //the AllowedBlackListQuotaPercent is checked at the end.
                     var characterCount = line.Replace("*", "").Length * wcm;
                     Console.WriteLine("Wildcard '{0}' matches the password, adding {1} characters to the quota", line, characterCount);
-                    blackListCharactersInPassword += characterCount;
+                    Chars += characterCount;
                 }
             }
         }
 
-        if (blackListCharactersInPassword > 0)
+        if (Chars > 0)
         {
-            var blackListPercentage = Convert.ToDouble(blackListCharactersInPassword) / password.Length * 100;
+            var blackListPercentage = Convert.ToDouble(Chars) / password.Length * 100;
+            Chars = 0;
             Console.WriteLine("Blacklist quota is {0:N2}%, policy is {1}%", blackListPercentage, config.PasswordPolicy.AllowedBlackListQuotaPercent);
             return blackListPercentage < config.PasswordPolicy.AllowedBlackListQuotaPercent;
         }
         else
         {
+            Chars = 0;
             return true;
         }
     }

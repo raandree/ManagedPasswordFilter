@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Attributes\PasswordRuleContainerAttribute.cs" />
     <Compile Include="Attributes\PasswordRuleAttribute.cs" />
+    <Compile Include="PasswordRules\QuotaPasswordRules.cs" />
     <Compile Include="PasswordRules\ZxcvbnPasswordRules.cs" />
     <Compile Include="PasswordRules\BlackListPasswordRules.cs" />
     <Compile Include="PasswordRules\AdPasswordRules.cs" />
