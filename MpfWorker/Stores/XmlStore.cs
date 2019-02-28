@@ -47,8 +47,10 @@ namespace Mpf.Stores
 
         public void Export(string path)
         {
+            File.Delete(path);
+
             var serializer = new XmlSerializer(typeof(T));
-            var fileStream = new FileStream(path, FileMode.OpenOrCreate);
+            var fileStream = new FileStream(path, FileMode.CreateNew);
 
             serializer.Serialize(fileStream, this);
 
