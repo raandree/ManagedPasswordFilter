@@ -14,10 +14,15 @@ public class AdPasswordRules : PasswordRulesBase
             return true;
         }
 
-        if (Convert.ToBoolean(config.PasswordPolicy.Denysettings & PasswordSettings.DenyGivenName))
+        if (Convert.ToBoolean(config.PasswordPolicy.DenySettings & PasswordSettings.DenyGivenName))
+        {
             return TestAdAttributeValueName(accountName, "givenName", password);
+        }
         else
+        {
+            Console.WriteLine("'DenyGivenName' in 'Denysettings' is not defined, skipping 'TestDenyGivenName'");
             return true;
+        }
     }
 
     [PasswordRule]
@@ -29,10 +34,13 @@ public class AdPasswordRules : PasswordRulesBase
             return true;
         }
 
-        if (Convert.ToBoolean(config.PasswordPolicy.Denysettings & PasswordSettings.DenyGivenName))
+        if (Convert.ToBoolean(config.PasswordPolicy.DenySettings & PasswordSettings.DenySurname))
             return TestAdAttributeValueName(accountName, "sn", password);
         else
+        {
+            Console.WriteLine("'DenySurname' in 'Denysettings' is not defined, skipping 'TestDenySurname'");
             return true;
+        }
     }
 
     static bool TestAdAttributeValueName(string accountName, string propertyName, string password)
