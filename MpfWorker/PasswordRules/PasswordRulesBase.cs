@@ -9,7 +9,7 @@ namespace Mpf
         protected static Config config = null;
         protected static bool IsConnectedToAd = false;
         protected static DirectoryEntry rootDse = null;
-        readonly string configFilePath = @"C:\Windows\System32\MpfConfig.xml";
+        readonly string configFilePath = @"C:\Windows\MpfConfig.xml";
 
         public bool IsEnabled
         {
@@ -36,6 +36,8 @@ namespace Mpf
                 config.PasswordPolicy.MaxLength = 256;
                 config.PasswordPolicy.MinScore = 4;
                 config.PasswordPolicy.MaxConsecutiveRepeatingCharacters = 5;
+                config.PasswordPolicy.AllowedBlackListQuotaPercent = 20;
+                config.PasswordPolicy.DenySettings = PasswordSettings.DenyName;
             }
 
             try

@@ -24,7 +24,7 @@ namespace Mpf
         public int MaxLength { get; set; }
         public int MinScore { get; set; }
         public int MaxConsecutiveRepeatingCharacters { get; set; }
-        public PasswordSettings Denysettings { get; set; }
+        public PasswordSettings DenySettings { get; set; }
         public double? AllowedBlackListQuotaPercent { get; set; }
     }
 

@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 
 namespace TestApp
 {
-
     public struct UNICODE_STRING
     {
         public ushort Length;
@@ -33,7 +32,7 @@ namespace TestApp
         [CommandLineArgument(HelpTextLong = "", HelpTextShort = "Target Platform", Type = ArgumentType.AtMostOnce)]
         public TargetPlatform? Platform = TargetPlatform.ManagedWorker;
 
-        [CommandLineArgument(HelpTextLong = "Writes a new MfpConfig file in C:\\Windows\\System32", HelpTextShort = "Init new MpfConfig", Type = ArgumentType.AtMostOnce)]
+        [CommandLineArgument(HelpTextLong = "Writes a new MfpConfig file in C:\\Windows", HelpTextShort = "Init new MpfConfig", Type = ArgumentType.AtMostOnce)]
         public bool? InitConfig;
 
         [Application(Title = "password filter testapp", Version = "0.10", Description1 = "...")]
@@ -82,21 +81,23 @@ namespace TestApp
             }
 
             //-----------------------------------------------------------------------------------------------------------------------------
+            int pl = IntPtr.Size;
 
             if (Parameters.InitConfig.HasValue)
             {
                 Mpf.Config c = new Mpf.Config
                 {
-                    BlackListPath = "C:\\Windows\\System32\\BlackList.txt",
+                    BlackListPath = "C:\\Windows\\MpfBlackList.txt",
                     IsEnabled = true,
                     ResultIfFailure = true
                 };
-                c.PasswordPolicy.Denysettings = Mpf.PasswordSettings.DenyName;
-                c.PasswordPolicy.MinLength = 12;
-                c.PasswordPolicy.MaxLength = 250;
-                c.PasswordPolicy.MinScore = 3;
+                c.PasswordPolicy.DenySettings = Mpf.PasswordSettings.DenyName;
+                c.PasswordPolicy.MinLength = 8;
+                c.PasswordPolicy.MaxLength = 254;
+                c.PasswordPolicy.MinScore = 0;
                 c.PasswordPolicy.MaxConsecutiveRepeatingCharacters = 5;
-                c.Export("C:\\Windows\\System32\\MpfConfig.xml");
+                c.PasswordPolicy.AllowedBlackListQuotaPercent = 20;
+                c.Export("C:\\Windows\\MpfConfig.xml");
             }
 
             bool result = false;

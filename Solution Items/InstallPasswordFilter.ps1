@@ -1,8 +1,9 @@
 ﻿Add-Type -Path $PSScriptRoot\MpfWorker.dll -ErrorAction Stop
 $destination = 'C:\Windows\System32'
+$destinationConfigPath = 'C:\Windows'
 $fileList = dir $PSScriptRoot -Filter *.dll
-$mpfConfigPath = "$destination\MpfConfig.xml"
-$blacklistPath = "$destination\Blacklist.txt"
+$mpfConfigPath = "$destinationConfigPath\MpfConfig.xml"
+$blacklistPath = "$destinationConfigPath\MpfBlackList.txt"
 
 foreach ($file in $fileList)
 {
@@ -34,8 +35,8 @@ $config.ResultIfFailure = $true
 $policy = New-Object Mpf.PasswordPoliciy
 $policy.Denysettings = 'DenyName'
 $policy.MaxLength = 254
-$policy.MinLength = 12
-$policy.MinScore = 3
+$policy.MinLength = 8
+$policy.MinScore = 0
 $policy.MaxConsecutiveRepeatingCharacters = 5
 $policy.AllowedBlackListQuotaPercent = 20
 $config.PasswordPolicy = $policy
