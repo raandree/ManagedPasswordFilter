@@ -15,9 +15,9 @@ public class BlackListPasswordRules : PasswordRulesBase
         {
             while (!sr.EndOfStream)
             {
-                var line = sr.ReadLine().ToLower();
+                var line = sr.ReadLine();
 
-                var wcm = password.WildCardMatch(line);
+                var wcm = password.WildCardMatch(line, false);
                 if (wcm > 0 && config.PasswordPolicy.AllowedBlackListQuotaPercent == null)
                 {
                     //if AllowedBlackListQuotaPercent is null, not match from the blacklist is allowed in the password
