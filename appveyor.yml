@@ -28,6 +28,9 @@ assembly_info:
 build:
   project: ManagedPasswordFilter.sln
 
+configuration:
+  - Release
+
 after_build:
   - ps: |
         Write-Host "'after_build' block"
