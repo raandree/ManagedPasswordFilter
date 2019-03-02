@@ -41,11 +41,18 @@ after_build:
         #Verbose = $true
         #}
         #Invoke-PSDeploy @Params # Create nuget package artifacts
-        Write-Host "Locating installer to push as artifact"
-        Add-AppveyorMessage "Locating installer to push as artifact" -Category Information
-        $msifile = Get-ChildItem -Recurse -Filter ManagedPasswordFilter.msi | Select-Object -First 1
-        Write-Host "msiFile FullName: $($msifile.FullName)"
-        Push-AppVeyorArtifact $msifile.FullName -FileName $msifile.Name -DeploymentName installer
+
+        7z a ManagedPasswordFilter %APPVEYOR_BUILD_FOLDER%\BuildOutout\InstallVersion\*
+
+        #Write-Host "Locating installer to push as artifact"
+        #Add-AppveyorMessage "Locating installer to push as artifact" -Category Information
+        #$msifile = Get-ChildItem -Recurse -Filter ManagedPasswordFilter.msi | Select-Object -First 1
+        #Write-Host "msiFile FullName: $($msifile.FullName)"
+        #Push-AppVeyorArtifact $msifile.FullName -FileName $msifile.Name -DeploymentName installer
+
+artifacts:
+  - path: ManagedPasswordFilter.zip
+    name: ManagedPasswordFilter
 
 deploy:
   - provider: GitHub
