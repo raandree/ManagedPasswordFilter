@@ -42,7 +42,7 @@ after_build:
         #}
         #Invoke-PSDeploy @Params # Create nuget package artifacts
         dir env:
-        7z a ManagedPasswordFilter "$($env:APPVEYOR_BUILD_FOLDER)\BuildOutout\InstallVersion\*"
+        7z a ManagedPasswordFilter "$($env:APPVEYOR_BUILD_FOLDER)\BuildOutput\InstallVersion\*"
 
         #Write-Host "Locating installer to push as artifact"
         #Add-AppveyorMessage "Locating installer to push as artifact" -Category Information
