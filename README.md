@@ -215,7 +215,59 @@ The size of the blacklist has an effect on the time it takes to process a passwo
 |100000 | 1260 |
 
 ### Testing
-TODO
+When having installed the password filter as described in the “Installation” section, Windows forwards any new password to the MpfWorker. Windows does not tell why a password is not accepted and just refers to the password policy. To test passwords and get verbose output about the MpfWorker’s activities, use the TestApp.exe. This exe is not part of the BuildOutput\InstallVersion folder, but it is part of the full Visual Studio build folder: BuildOutput\x64\Debug | Release.
+
+One purpose of using the TestApp.exe can reset the MpfConfig using the /InitConfig switch.
+
+The main purpose is to test passwords against the MpfWorker. This just requires the password to test and a test platform. There are three options:
+-	ManagedWorker: Calls the managed worker directly.
+-	ManagedProxy: Calls the MpfWorker via the MpfProxy.
+-	UnmanagedProxy: Calls the MpfWorker via the MpfProxy which gets called by the UnmanagedProxy. This is the same way the Windows password reset process uses.
+
+The output of the TestApp looks lie this
+```
+PS C:\Mpf> .\TestApp.exe /platform:unmanagedproxy /password:Somepass1
+
+-------------------------------------------------------------------------------------------
+password filter testapp 0.10
+
+...
+-------------------------------------------------------------------------------------------
+
+Password       Somepass1
+AccountName    TestAccountName
+FullName       TestFullName
+Platform       UnmanagedProxy
+InitConfig     <not set>
+-------------------------------------------------------------------------------------------
+Input data in unmanaged code: AccountName:'TestAccountName' FullName:'TestFullName' Password:'Somepass1'
+
+Going through 1 test rules in class 'InitPasswordRule'
+Calling password filter rule 'InitValues': True
+Going through 5 test rules in class 'DefaultPasswordRules'
+Calling password filter rule 'TestMinPasswordLength': True
+Calling password filter rule 'TestMaxPasswordLength': True
+Calling password filter rule 'TestAtLeastOneUpperCaseCharacter': True
+Calling password filter rule 'TestAtLeastOneLowerCaseCharacter': True
+Calling password filter rule 'TestMaxConsecutiveChars': True
+Going through 1 test rules in class 'BlackListPasswordRules'
+Calling password filter rule 'TestBlackList': True
+Going through 2 test rules in class 'AdPasswordRules'
+Could not connect to AD, skipping test
+Calling password filter rule 'TestDenyGivenName': True
+Could not connect to AD, skipping test
+Calling password filter rule 'TestDenySurname': True
+Going through 1 test rules in class 'ZxcvbnPasswordRules'
+Calling password filter rule 'TestZxcvbn': True
+Going through 1 test rules in class 'QuotaPasswordRules'
+Calling password filter rule 'TestTotalProhibitedCharacters': True
+Result in unmanaged code: -1
+
+True
+```
+
+The last line indicates if the password is according to the policy (True).
+
 
 ## Appendix
 
